@@ -37,6 +37,8 @@ def getPrices(links, value):
                 if(char == "<" or char == "/"):
                     flag = False
                     break
+                elif(char == ","):
+                    continue
                 finalPrice += char
         finalPrice = int(finalPrice)
 
