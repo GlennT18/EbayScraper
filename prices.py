@@ -13,14 +13,11 @@ def getPrices(links, value):
     100000 = $1,000.00
 
     '''
-
-    #test with only the first link from the list rn
     withinPriceRangeList = []
     for url in links:
         req = requests.get(str(url))
         soup = BeautifulSoup(req.content, "html.parser")
 
-        #we know that the links are working properly
         #parse the soup for the price (span ux-textspans or div x-price-primary)
         price = soup.find('div', {'class': 'x-price-primary'})
         price = str(price)
