@@ -1,3 +1,5 @@
+###this file is redundant. Only use this for manual testing ###
+
 from getSite import *
 from prices import *
 from parseprice import *
@@ -15,7 +17,7 @@ def run(link, price):
     #getPrices goes through the list of links
     #and only returns the links that are under the value of
     #the parameter
-    links = getPrices(links, price)
+    links = getInfo(links, price)
     for link in links:
         print(link)
 

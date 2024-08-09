@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
-def getPrices(links, value):
+def getInfo(links, value):
     '''
     A little weird, but the value of 5000 is equal to 50.00
     This solution allows us to strip everything from the pricetag that is set on ebay
@@ -13,7 +13,11 @@ def getPrices(links, value):
     100000 = $1,000.00
 
     '''
-    withinPriceRangeList = []
+    prices = []
+    urls = []
+    titles = []
+    imgs = []
+    listOfLists = [prices, urls, titles, imgs]
     for url in links:
         req = requests.get(str(url))
         soup = BeautifulSoup(req.content, "html.parser")
@@ -42,7 +46,18 @@ def getPrices(links, value):
         #add logic to compare price to value
         #add to list or ignore
         if(finalPrice <= value):
-            withinPriceRangeList.append(url)
+            urls.append(url)
+            #find title
+            name = soup.find('span', {'class': 'ux-textspans ux-textspans--BOLD'})
+            titles.append(name.text)
 
-    #return list
-    return withinPriceRangeList
+            #find price
+            prices.append(str(finalPrice))
+
+            #find img(monday)
+
+    #return list of lists
+    listOfLists.append(prices)
+    listOfLists.append(urls)
+    listOfLists.append(titles)
+    return listOfLists
