@@ -40,6 +40,10 @@ with ui.column().classes('w-full no-wrap'):
 ui.run()
 
 def go():
+    #clear the table to remove old search results
+    table.rows.clear()
+    table.update()
+
     #run(linkInput.value, priceInput.value)
     price = parsePrice(str(priceInput.value))
     link = str(linkInput.value)
