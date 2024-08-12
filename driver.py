@@ -1,7 +1,7 @@
 ###this file is redundant. Only use this for manual testing ###
 
 from getSite import *
-from prices import *
+from info import *
 from parseprice import *
 
 #pip install beautiful soup, nicegui, requests

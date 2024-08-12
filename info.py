@@ -1,7 +1,5 @@
-from xml.etree.ElementTree import tostring
 from bs4 import BeautifulSoup
 import requests
-import re
 
 def getInfo(links, value):
     '''
@@ -48,17 +46,23 @@ def getInfo(links, value):
         #add to list or ignore
         if(finalPrice <= value):
             urls.append(url)
-            #find title
+            #add title
             name = soup.find('span', {'class': 'ux-textspans ux-textspans--BOLD'})
             titles.append(name.text)
 
-            #find price + add $ and ./,
+            #add price
             prices.append(str(testPrice))
 
             #find img(monday)
+            imgTag = soup.find('img')
+            imgSrc = imgTag['src']
+            imgs.append(imgSrc)
+            
+
 
     #return list of lists
     listOfLists.append(prices)
     listOfLists.append(urls)
     listOfLists.append(titles)
+    listOfLists.append(imgs)
     return listOfLists
