@@ -1,11 +1,10 @@
 from json.tool import main
-from unittest import result
 from nicegui import ui
+import asyncio
 from driver import *
 from getSite import *
 from info import *
 
-#ui practice
 with ui.row().classes('w-full border'):
     ui.space()
     ui.html('Welcome to <strong>Ebay Scrapper</strong>').style('font-size:150%')
@@ -16,7 +15,8 @@ with ui.column().classes('w-full no-wrap'):
     linkInput = ui.input('Enter Link:').classes('w-1/4')
     priceInput = ui.input("Enter desired price(ex. $10.00):").classes('w-1/4')
     ui.button('Run Search', on_click= lambda: go())
-    resultLable = ui.label('Results:')
+
+    resultLabel = ui.label('Results:')
     columns = [
         {'name': 'price', 'label':'Price', 'field': 'priceField', 'align': 'left'},
         {'name': 'title', 'label': 'Name', 'field': 'titleField', 'align': 'left'},
@@ -28,7 +28,7 @@ with ui.column().classes('w-full no-wrap'):
     #to update this to display URL - remove click here and put {{props.value}}
     table.add_slot('body-cell-link', '''
     <q-td :props="props">
-        <a :href="props.value">View Item</a>
+        <a :href="props.value" target="_blank">View Item</a>
     </q-td>
     ''')
     table.add_slot('body-cell-img', '''
@@ -42,7 +42,7 @@ ui.run()
 def go():
     #clear the table to remove old search results
     table.rows.clear()
-    table.update()
+    table.update()    
 
     #run(linkInput.value, priceInput.value)
     price = parsePrice(str(priceInput.value))
@@ -62,5 +62,4 @@ def go():
         #update this to add images and prices
         table.add_rows({'priceField': prices[counter], 'titleField': titles[counter], 'linkField': x, 'imgField': imgs[counter]})
         counter += 1
-    resultLable.set_text('%3d Results:' % (counter))
-
+    resultLabel.set_text('%3d Results:' % (counter))
