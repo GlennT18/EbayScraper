@@ -57,7 +57,25 @@ def getInfo(links, value):
             imgTag = soup.find('img')
             imgSrc = imgTag['src']
             imgs.append(imgSrc)
-            
+
+            '''
+            check for ebaystatic.com
+            not sure what that domain is, but it is causing issues
+            with images. The links still directed users to the ebay
+            page, but when I was researching the domain I did not find
+            anything very concrete. 
+
+            Saw a lot of user discussion saying that Ebay was not able
+            to help them with the issue, they weren't sure what it was,
+            and some users reported that they were stuck on a blank
+            screen when they reached the domain. I am playing it safe and
+            removing any links related to that domain in the meantime
+            '''
+            if("ebaystatic.com" in imgSrc):
+                urls.pop()
+                prices.pop()
+                titles.pop()
+                imgs.pop()
 
 
     #return list of lists
