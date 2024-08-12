@@ -5,8 +5,6 @@ from driver import *
 from getSite import *
 from prices import *
 
-result_label = None
-
 #ui practice
 with ui.row().classes('w-full border'):
     ui.space()
@@ -18,7 +16,7 @@ with ui.column().classes('w-full no-wrap'):
     linkInput = ui.input('Enter Link:').classes('w-1/4')
     priceInput = ui.input("Enter desired price(ex. $10.00):").classes('w-1/4')
     ui.button('Run Search', on_click= lambda: go())
-    ui.label('Results:')
+    resultLable = ui.label('Results:')
     columns = [
         {'name': 'price', 'label':'Price', 'field': 'priceField', 'align': 'left'},
         {'name': 'title', 'label': 'Name', 'field': 'titleField', 'align': 'left'},
@@ -30,14 +28,13 @@ with ui.column().classes('w-full no-wrap'):
     #to update this to display URL - remove click here and put {{props.value}}
     table.add_slot('body-cell-link', '''
     <q-td :props="props">
-        <a :href="props.value">click here</a>
+        <a :href="props.value">View Item</a>
     </q-td>
     ''')
 
 ui.run()
 
 def go():
-    global result_label
     #run(linkInput.value, priceInput.value)
     price = parsePrice(str(priceInput.value))
     link = str(linkInput.value)
@@ -50,11 +47,11 @@ def go():
     urls = finalLists[1] 
     titles = finalLists[2]
     #finalLists[3] = imgs[]
-    #
     
     counter = 0
     for x in urls:
         #update this to add images and prices
         table.add_rows({'priceField': prices[counter], 'titleField': titles[counter], 'linkField': x})
         counter += 1
+    resultLable.set_text('%3d Results:' % (counter))
 

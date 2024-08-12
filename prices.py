@@ -24,6 +24,7 @@ def getInfo(links, value):
 
         #parse the soup for the price (span ux-textspans or div x-price-primary)
         price = soup.find('div', {'class': 'x-price-primary'})
+        testPrice = price.text
         price = str(price)
 
         #pull the price out of the div. Wanted to use regex but there are numbers within the div
@@ -51,8 +52,8 @@ def getInfo(links, value):
             name = soup.find('span', {'class': 'ux-textspans ux-textspans--BOLD'})
             titles.append(name.text)
 
-            #find price
-            prices.append(str(finalPrice))
+            #find price + add $ and ./,
+            prices.append(str(testPrice))
 
             #find img(monday)
 
