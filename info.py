@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import re
 
 def getInfo(links, value):
     '''
@@ -22,36 +23,23 @@ def getInfo(links, value):
 
         #parse the soup for the price (span ux-textspans or div x-price-primary)
         price = soup.find('div', {'class': 'x-price-primary'})
-        testPrice = price.text
-        price = str(price)
+        displayPrice = price.text
+        conditionalPrice = price.text
 
-        #pull the price out of the div. Wanted to use regex but there are numbers within the div
-        #we are just using split function on the $ and ' ' after the number
-        #this is disgusting pls fix later
-        flag = False
-        finalPrice = ""
-        for char in price:
-            if(char == "$"):
-                flag = True
-            if(flag and char != "." and char != "$"):
-                if(char == "<" or char == "/"):
-                    flag = False
-                    break
-                elif(char == ","):
-                    continue
-                finalPrice += char
-        finalPrice = int(finalPrice)
+        #remove everything other than ints from conditionalPrice
+        conditionalPrice = re.sub("[^0-9]", "", conditionalPrice)
+        print(conditionalPrice)
 
         #add logic to compare price to value
         #add to list or ignore
-        if(finalPrice <= value):
+        if(int(conditionalPrice) <= value):
             urls.append(url)
             #add title
             name = soup.find('span', {'class': 'ux-textspans ux-textspans--BOLD'})
             titles.append(name.text)
 
             #add price
-            prices.append(str(testPrice))
+            prices.append(displayPrice)
 
             #find img(monday)
             imgTag = soup.find('img')
@@ -68,7 +56,12 @@ def getInfo(links, value):
             Saw a lot of user discussion saying that Ebay was not able
             to help them with the issue, they weren't sure what it was,
             and some users reported that they were stuck on a blank
-            screen when they reached the domain. I am playing it safe and
+            screen when they reached the domain. 
+            
+            When I attempted to reach the domain, I got a network error.
+            It is very possible it is something Ebay was using for their 
+            backend and it got phased out or never fully actualized. Either
+            way I am playing it safe and
             removing any links related to that domain in the meantime
             '''
             if("ebaystatic.com" in imgSrc):
