@@ -1,6 +1,7 @@
+from parseprice import *
 from bs4 import BeautifulSoup
 import requests
-import re
+
 
 def getInfo(links, value):
     '''
@@ -16,7 +17,7 @@ def getInfo(links, value):
     urls = []
     titles = []
     imgs = []
-    listOfLists = [prices, urls, titles, imgs]
+    listOfLists = []
     for url in links:
         req = requests.get(str(url))
         soup = BeautifulSoup(req.content, "html.parser")
@@ -27,12 +28,11 @@ def getInfo(links, value):
         conditionalPrice = price.text
 
         #remove everything other than ints from conditionalPrice
-        conditionalPrice = re.sub("[^0-9]", "", conditionalPrice)
-        print(conditionalPrice)
+        conditionalPrice = parsePrice(conditionalPrice)
 
         #add logic to compare price to value
         #add to list or ignore
-        if(int(conditionalPrice) <= value):
+        if(conditionalPrice <= value):
             urls.append(url)
             #add title
             name = soup.find('span', {'class': 'ux-textspans ux-textspans--BOLD'})

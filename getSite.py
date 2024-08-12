@@ -5,7 +5,6 @@ import requests
 def getSiteContents(url):
     #setup the soup, both links work. Really any should as long as its the home page of Ebay
     #req = requests.get("https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2499334.m570.l1313&_nkw=scrap+metal&_sacat=0")
-    #req = requests.get("https://www.ebay.com/sch/i.html?_from=R40&_trksid=p4432023.m570.l1313&_nkw=action+figures&_sacat=0")
     req = requests.get(url)
     soup = BeautifulSoup(req.content, "html.parser")
     

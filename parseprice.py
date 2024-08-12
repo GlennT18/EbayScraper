@@ -1,9 +1,8 @@
+import re
+
 def parsePrice(price):
     #just removes all the symbols 
-    price = price.replace(".", "")
-    price = price.replace("$", "")
-    price = price.replace(",", "")
-
+    price = re.sub("[^0-9]", "", price)
     finalPrice = int(price)
     #return
     return finalPrice
