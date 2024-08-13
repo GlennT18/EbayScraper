@@ -1,5 +1,6 @@
 from nicegui import ui
 import asyncio
+from fastapi import FastAPI
 from driver import *
 from getSite import *
 from info import *
@@ -40,7 +41,7 @@ with ui.column().classes('w-full no-wrap'):
     </q-td>
     ''')
 
-ui.run()
+ui.run(favicon='./favicon2.jpg')
 
 async def show_splashscreen():
     with ui.dialog(value=True) as dialog, ui.card().classes('w-1/4 h-1/4'):
