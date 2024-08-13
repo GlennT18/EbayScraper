@@ -8,15 +8,16 @@ def getInfo(links, value):
     A little weird, but the value of 5000 is equal to 50.00
     This solution allows us to strip everything from the pricetag that is set on ebay
     and compare it to the value that is passed into the function
-    1000 = $10.00
-    10000 = $100.00
-    100000 = $1,000.00
+    10      = $0.10
+    1000    = $10.00
+    10000   = $100.00
+    100000  = $1,000.00
 
     '''
-    prices = []
-    urls = []
-    titles = []
-    imgs = []
+    prices  = []
+    urls    = []
+    titles  = []
+    imgs    = []
     listOfLists = []
     for url in links:
         req = requests.get(str(url))

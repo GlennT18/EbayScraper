@@ -22,10 +22,10 @@ with ui.column().classes('w-full no-wrap'):
 
     resultLabel = ui.label('Results:')
     columns = [
-        {'name': 'price', 'label':'Price', 'field': 'priceField', 'align': 'left'},
-        {'name': 'title', 'label': 'Name', 'field': 'titleField', 'align': 'left'},
-        {'name': 'link', 'label':'Link', 'field': 'linkField', 'align': 'left'},
-        {'name': 'img', 'label': 'Image', 'field': 'imgField', 'align': 'left'}
+        {'name': 'price',   'label': 'Price',   'field': 'priceField',  'align': 'left'},
+        {'name': 'title',   'label': 'Name',    'field': 'titleField',  'align': 'left'},
+        {'name': 'link',    'label': 'Link',    'field': 'linkField',   'align': 'left'},
+        {'name': 'img',     'label': 'Image',   'field': 'imgField',    'align': 'left'}
     ]
 
     table = ui.table(columns=columns, rows=[], row_key='name').classes('w-full border')
